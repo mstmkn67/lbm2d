@@ -6,5 +6,6 @@ GOURMETのメニューから、 Tool>Environments Setup から、ダウンロー
 
 実行ファイルは、Ubuntu18.04.5でコンパイルしています。 lbm2d -I inputfile -O outputfile で実行してください。
 たとえば、 lbm2d -I shear.udf -O shear_s.udf のようにです。
+
 -------------
 [screenshot](screenshot.png)
