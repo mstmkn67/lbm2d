@@ -8,4 +8,4 @@ GOURMETのメニューから、 Tool>Environments Setup から、ダウンロー
 たとえば、 lbm2d -I shear.udf -O shear_s.udf のようにです。
 
 -------------
-[screenshot](screenshot.png)
+![screenshot](screenshot.png)
