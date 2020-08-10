@@ -1,0 +1,86 @@
+\begin{header}
+\begin{def}
+	EngineType:string;
+	EngineVersion:string;
+	IOType:string;
+	ProjectName:string;
+	Comment:string;
+	Action:string;
+\end{def}
+
+\begin{data}
+	EngineType:"lbm2d"
+	EngineVersion:"1"
+	IOType:"INOUT"
+	ProjectName:""
+	Comment:"UDF definition file for 2dimensional lattice Boltzmann simulator"
+	Action:"lbm2d_v1.act"
+\end{data}
+\end{header}
+\begin{unit}
+[l]= {$unit_parameter.length}[m]
+[tau] = {$unit_parameter.time}[s]
+[eta] = {$unit_parameter.viscosity}[kg*s/m^2]
+\end{unit}
+\begin{def}
+class Vector2d:{x:double[unit],y:double[unit]}[unit]
+\end{def}
+\begin{global_def}
+unit_parameter:{
+	length:double[m]
+	time:double[s]
+	viscosity:double[kg*s/m^2]
+}
+system_size:{
+	nx:int
+	ny:int
+	dx:double[l]
+}
+fluid:{
+	viscosity:double[eta]
+	mass_density:double[eta*tau/l^2]
+}
+simulation:{
+	time:{
+		simulation_steps:int
+		record_steps:int
+		dt:double[tau]
+	}
+	boundary_condition:{
+		type:select{"Couette","Poiseuille","LeesEdwards"}
+		Couette:{
+			velocity_x_up:double[l/tau]
+			velocity_x_down:double[l/tau]
+		}
+		Poiseuille:{
+			delta_pressure:double[eta/tau]
+		}
+		LeesEdwards:{
+			shear_rate:double[1/tau]
+		}
+	}
+	field_output:{
+		u:select{"false","true"}
+		p:select{"false","true"}
+		rho:select{"false","true"}
+		f:select{"false","true"}
+	}
+}
+\end{global_def}
+\begin{def}
+simulation_result:{
+	lattice:{
+		u[][]:double[l/tau]
+		v[][]:double[l/tau]
+		p[][]:double[eta/tau]
+		rho[][]:double[eta*tau/l^2]
+		f[][][]:double[eta*tau/l^2]
+	}
+	cpu_time:double [s]
+	additional_information[]:{
+		item:string
+		value:string
+	}
+}
+\end{def}
+
